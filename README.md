@@ -1,3 +1,9 @@
-This is the Ascians LLC Operations API. 
+## Project setup
+```
+npm install
+```
 
-This uses mysql, express, and node.js.
+### Run
+```
+npm start
+```
