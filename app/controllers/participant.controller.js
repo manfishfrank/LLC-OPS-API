@@ -22,8 +22,8 @@ exports.create = (req, res) => {
 
   // Create a Participant. Active defaults to true.
   const participant = {
-    discordName: req.body.title,
-    inGameName: req.body.description,
+    discordName: req.body.discordName,
+    inGameName: req.body.inGameName,
   };
 
   // Save a Participant in the database
