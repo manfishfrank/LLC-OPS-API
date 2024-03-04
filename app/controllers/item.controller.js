@@ -27,6 +27,18 @@ exports.create = (req, res) => {
     return;
   }
 
+  if (!req.body.value || !isNaN(req.body.value)) {
+    if(!req.body.value)
+      res.status(400).send({
+        message: `${Constants.REQUIRE_PREFIX} value`
+      });
+    else {
+      res.status(400).send({
+        message: 'Value must be a number'
+      });
+    }
+    return;
+  }
 
   // Create a Item. Active defaults to true.
   const item = {
