@@ -25,6 +25,10 @@ module.exports = (sequelize, Sequelize) => {
                 key: 'id',
             }
         },
+        quantity: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
         seasonId: {
             type: Sequelize.INTEGER,
             allowNull: false,
