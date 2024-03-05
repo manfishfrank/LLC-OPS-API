@@ -29,6 +29,13 @@ exports.create = (req, res) => {
     });
     return;
   }
+  
+  if (!req.body.quantity) {
+    res.status(400).send({
+      message: `${Constants.REQUIRE_PREFIX} quantity`
+    });
+    return;
+  }
 
   if (!req.body.seasonId) {
     res.status(400).send({
@@ -44,17 +51,18 @@ exports.create = (req, res) => {
       submissionSignature: req.body.submissionSignature,
       participantId: req.body.participantId,
       itemId: req.body.itemId,
+      quantity: req.body.quantity,
       seasonId: req.body.seasonId,
-      points: await calcPoints(),
+      points: await calcPoints(req.body.quantity),
     }
     return submissionCalculation;
   };
 
-  const calcPoints = async() => {
+  const calcPoints = async(qty = 0) => {
     let totalPoints = 0;
     const item = await Item.findByPk(req.body.itemId);
     if(item) {
-      totalPoints = item.value;
+      totalPoints = item.value * item.quantity;
     }
   };
 
