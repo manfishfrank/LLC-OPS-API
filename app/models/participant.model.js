@@ -12,6 +12,7 @@ module.exports = (sequelize, Sequelize) => {
         inGameName: {
             type: Sequelize.STRING,
             allowNull: false,
+            unique: true
         },
         active: {
             type: Sequelize.BOOLEAN,
