@@ -20,23 +20,18 @@ exports.create = (req, res) => {
     return;
   }
 
-  if (!req.body.season) {
+  if (!req.body.seasonId) {
     res.status(400).send({
       message: `${Constants.REQUIRE_PREFIX} season`
     });
     return;
   }
 
-  if (!req.body.value || !isNaN(req.body.value)) {
+  if (!req.body.value) {
     if(!req.body.value)
       res.status(400).send({
         message: `${Constants.REQUIRE_PREFIX} value`
       });
-    else {
-      res.status(400).send({
-        message: 'Value must be a number'
-      });
-    }
     return;
   }
 
@@ -44,7 +39,7 @@ exports.create = (req, res) => {
   const item = {
     lodestoneId: req.body.lodestoneId,
     itemName: req.body.itemName,
-    season: req.body.season,
+    seasonId: req.body.season,
     value: req.body.value,
   };
 
