@@ -23,6 +23,7 @@ db.sequelize.sync()
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
+    console.log(err);
   });
 
 // // drop the table if it already exists
