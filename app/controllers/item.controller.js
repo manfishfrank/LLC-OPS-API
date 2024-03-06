@@ -39,7 +39,7 @@ exports.create = (req, res) => {
   const item = {
     lodestoneId: req.body.lodestoneId,
     itemName: req.body.itemName,
-    seasonId: req.body.season,
+    seasonId: req.body.seasonId,
     value: req.body.value,
   };
 

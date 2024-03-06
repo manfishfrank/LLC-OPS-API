@@ -64,6 +64,7 @@ exports.create = (req, res) => {
     if(item) {
       totalPoints = item.value * item.quantity;
     }
+    return totalPoints;
   };
 
   // Save a Item in the database
