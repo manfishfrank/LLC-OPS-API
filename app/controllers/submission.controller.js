@@ -81,7 +81,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Item from the database.
 exports.findAll = (req, res) => {
-  Item.findAll()
+  Submission.findAll()
     .then(data => {
       res.send(data);
     })
@@ -97,7 +97,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Item.findByPk(id)
+  Submission.findByPk(id)
     .then(data => {
       if (data) {
         res.send(data);
@@ -118,7 +118,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Item.update(req.body, {
+  Submission.update(req.body, {
     where: { id: id }
   })
     .then(num => {
@@ -143,7 +143,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Item.destroy({
+  Submission.destroy({
     where: { id: id }
   })
     .then(num => {
@@ -166,7 +166,7 @@ exports.delete = (req, res) => {
 
 // Delete all Participants from the database.
 exports.deleteAll = (req, res) => {
-  Item.destroy({
+  Submission.destroy({
     where: {},
     truncate: false
   })
