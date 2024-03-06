@@ -5,13 +5,9 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
   operatorsAliases: false,
-
-  // pool: {
-  //   max: dbConfig.pool.max,
-  //   min: dbConfig.pool.min,
-  //   acquire: dbConfig.pool.acquire,
-  //   idle: dbConfig.pool.idle
-  // }
+  dialectOptions: {
+    socketPath: `/cloudsql/llc-ops-api:us-central1:llc-ops-sql`,
+  },
 });
 
 const db = {};
@@ -20,8 +16,8 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.participants = require("./participant.model.js")(sequelize, Sequelize);
-db.items = require("./item.model.js")(sequelize, Sequelize);
 db.seasons = require("./season.model.js")(sequelize, Sequelize);
+db.items = require("./item.model.js")(sequelize, Sequelize);
 db.submissions = require("./submission.model.js")(sequelize, Sequelize);
 
 db.seasons.hasMany(db.items, {

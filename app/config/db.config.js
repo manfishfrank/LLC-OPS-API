@@ -6,6 +6,7 @@ module.exports = {
   PASSWORD: process.env.DB_PASSWORD,
   DB: process.env.DB_NAME,
   dialect: 'mysql',
+  socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`
   // pool: {
   //   max: 5,
   //   min: 0,

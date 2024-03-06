@@ -21,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'Season',
+                model: 'Seasons',
                 key: 'id',
             },
         },

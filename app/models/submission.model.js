@@ -13,15 +13,15 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'Participant',
+                model: 'Participants',
                 key: 'id',
             }
         },
         itemId: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'Item',
+                model: 'Items',
                 key: 'id',
             }
         },
@@ -33,7 +33,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'Season',
+                model: 'Seasons',
                 key: 'id',
             }
         },
