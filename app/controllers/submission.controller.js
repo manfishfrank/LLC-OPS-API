@@ -44,40 +44,39 @@ exports.create = (req, res) => {
     return;
   }
 
+  Item.findByPk(req.body.itemId)
+    .then((item) => {
+      if(!item) {
+        return res.status(404).send({
+          message: 'Item not found' //move to constants
+        });
+      }
+      const points = item.value * req.body.quantity;
 
-  // Create a Submission. Active defaults to true.
-  const submission = async() => {
-    const submissionCalculation = {
-      submissionSignature: req.body.submissionSignature,
-      participantId: req.body.participantId,
-      itemId: req.body.itemId,
-      quantity: req.body.quantity,
-      seasonId: req.body.seasonId,
-      points: await calcPoints(req.body.quantity),
-    }
-    return submissionCalculation;
-  };
+      const submission = {
+        submissionSignature: req.body.submissionSignature,
+        participantId: req.body.participantId,
+        itemId: req.body.itemId,
+        quantity: req.body.quantity,
+        seasonId: req.body.seasonId,
+        points: points
+      }
 
-  const calcPoints = async(qty = 0) => {
-    let totalPoints = 0;
-    const item = await Item.findByPk(req.body.itemId);
-    if(item) {
-      totalPoints = item.value * item.quantity;
-    }
-    return totalPoints;
-  };
-
-  // Save a Item in the database
-  Submission.create(submission)
-    .then(data => {
-      res.send(data);
+      Submission.create(submission)
+        .then(data => {
+          res.send(data);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message: err.message || `${Constants.ERROR_GEN}`
+        });
+      }); 
     })
     .catch(err => {
       res.status(500).send({
-        message:
-          err.message || `${Constants.ERROR_GEN}`
-      });
+        message: err.message || `${Constants.ERROR_GEN}`
     });
+  });
 };
 
 // Retrieve all Item from the database.
