@@ -1,9 +1,12 @@
 const dbConfig = require("../config/db.config.js");
 
+
+
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
+//const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {  
+  host: DB_HOST,
+  dialect: 'mysql',
   operatorsAliases: false,
   dialectOptions: {
     socketPath: `/cloudsql/llc-ops-api:us-central1:llc-ops-sql`,
