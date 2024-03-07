@@ -20,6 +20,9 @@ module.exports = app => {
   
     // Delete all Submission
     router.delete("/", submission.deleteAll);
+
+    // Get Sumbissions By User Id
+    router.get("/byuser/:id", submission.findByParticipant);
   
     app.use('/api/submission', router);
   };

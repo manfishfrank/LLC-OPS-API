@@ -79,6 +79,28 @@ exports.create = (req, res) => {
   });
 };
 
+//retrieve all sumbissions for a participant
+exports.findByParticipant = (req, res) => {
+  Participant.findOne({ 
+    where: {id: req.params.id},
+    include: Submission
+  }).then((data) => {
+
+    if(!data) {
+      return res.status(404).send({
+        message: 'Participant Sumbissions not found' //move to constants
+      });
+    }
+    res.send(data);
+
+  }).catch(err => {
+    res.status(500).send({
+      message:
+        err.message || `${Constants.ERROR_GEN}`
+    });
+  });
+};
+
 // Retrieve all Item from the database.
 exports.findAll = (req, res) => {
   Submission.findAll()
