@@ -24,6 +24,7 @@ exports.create = (req, res) => {
   const participant = {
     discordName: req.body.discordName,
     inGameName: req.body.inGameName,
+    lodestoneId: req.body.lodestoneId,
   };
 
   // Save a Participant in the database

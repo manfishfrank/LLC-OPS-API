@@ -5,6 +5,10 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true,
         },
+        lodestoneId: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
         discordName: {
             type: Sequelize.STRING,
             allowNull: false,
