@@ -40,6 +40,7 @@ require("./app/routes/participant.routes")(app);
 require("./app/routes/item.routes")(app);
 require("./app/routes/season.routes")(app);
 require("./app/routes/submission.routes")(app);
+require("./app/routes/rank.routes")(app);
 
 
 // set port, listen for requests

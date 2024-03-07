@@ -22,6 +22,16 @@ db.participants = require("./participant.model.js")(sequelize, Sequelize);
 db.seasons = require("./season.model.js")(sequelize, Sequelize);
 db.items = require("./item.model.js")(sequelize, Sequelize);
 db.submissions = require("./submission.model.js")(sequelize, Sequelize);
+db.ranks = require("./rank.model.js")(sequelize, Sequelize);
+
+db.seasons.hasMany(db.ranks, {
+  foreignKey: 'seasonId',
+  onDelete: 'CASCADE'
+});
+
+db.ranks.belongsTo(db.seasons, {
+  foreignKey: 'seasonId',
+});
 
 db.seasons.hasMany(db.items, {
   foreignKey: 'seasonId',
