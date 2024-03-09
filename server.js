@@ -17,6 +17,15 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 
+// db.sequelize.sync({force: true})
+//   .then(() => {
+//     console.log("Synced db.");
+//   })
+//   .catch((err) => {
+//     console.log("Failed to sync db: " + err.message);
+//     console.log(err);
+//   });
+
 db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
@@ -25,11 +34,6 @@ db.sequelize.sync()
     console.log("Failed to sync db: " + err.message);
     console.log(err);
   });
-
-// // drop the table if it already exists
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
 
 // Testing route
 app.get("/", (req, res) => {
@@ -41,6 +45,7 @@ require("./app/routes/item.routes")(app);
 require("./app/routes/season.routes")(app);
 require("./app/routes/submission.routes")(app);
 require("./app/routes/rank.routes")(app);
+require("./app/routes/leaderboard.routes")(app);
 
 
 // set port, listen for requests

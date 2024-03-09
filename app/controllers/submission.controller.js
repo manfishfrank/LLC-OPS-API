@@ -5,16 +5,11 @@ const Season = db.seasons;
 const Submission = db.submissions;
 const Op = db.Sequelize.Op;
 const Constants = require("../constants/index");
+const { UUID } = require("sequelize");
 
 // Create and Save a new Submission
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.submissionSignature) {
-    res.status(400).send({
-      message: `${Constants.REQUIRE_PREFIX} submissionSignature`
-    });
-    return;
-  }
 
   if (!req.body.participantId) {
     res.status(400).send({
@@ -52,9 +47,8 @@ exports.create = (req, res) => {
         });
       }
       const points = item.value * req.body.quantity;
-
       const submission = {
-        submissionSignature: req.body.submissionSignature,
+        submissionSignature: 1121,
         participantId: req.body.participantId,
         itemId: req.body.itemId,
         quantity: req.body.quantity,
