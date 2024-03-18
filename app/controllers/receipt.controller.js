@@ -1,14 +1,17 @@
 const db = require("../models");
-const Item = db.items;
-const Participant = db.participants;
-const Season = db.seasons;
-const Submission = db.submissions;
+const Receipt = db.receipts;
 const Op = db.Sequelize.Op;
 const Constants = require("../constants/index");
 
-// Create and Save a new Submission
+// Create and Save a new Receipt
 exports.create = (req, res) => {
   // Validate request
+  if (!req.body.officerSignature) {
+    res.status(400).send({
+      message: `${Constants.REQUIRE_PREFIX} officerSignature`
+    });
+    return;
+  }
 
   if (!req.body.participantId) {
     res.status(400).send({
@@ -17,20 +20,13 @@ exports.create = (req, res) => {
     return;
   }
 
-  if (!req.body.officerSignature) {
+  if (!req.body.prizeId) {
     res.status(400).send({
-      message: `${Constants.REQUIRE_PREFIX} officerSignature`
+      message: `${Constants.REQUIRE_PREFIX} prizeId`
     });
     return;
   }
 
-  if (!req.body.itemId) {
-    res.status(400).send({
-      message: `${Constants.REQUIRE_PREFIX} itemId`
-    });
-    return;
-  }
-  
   if (!req.body.quantity) {
     res.status(400).send({
       message: `${Constants.REQUIRE_PREFIX} quantity`
@@ -38,72 +34,16 @@ exports.create = (req, res) => {
     return;
   }
 
-  if (!req.body.seasonId) {
-    res.status(400).send({
-      message: `${Constants.REQUIRE_PREFIX} seasonId`
-    });
-    return;
-  }
+  // Create a Receipt. Active defaults to true.
+  const receipt = {
+    officerSignature: req.body.officerSignature,
+    participantId: req.body.participantId,
+    prizeId: req.body.prizeId,
+    quantity: req.body.quantity
+  };
 
-  Item.findByPk(req.body.itemId)
-    .then((item) => {
-      if(!item) {
-        return res.status(404).send({
-          message: 'Item not found' //move to constants
-        });
-      }
-      const points = item.value * req.body.quantity;
-      const submission = {
-        officerSignature: req.body.officerSignature,
-        participantId: req.body.participantId,
-        itemId: req.body.itemId,
-        quantity: req.body.quantity,
-        seasonId: req.body.seasonId,
-        points: points
-      }
-
-      Submission.create(submission)
-        .then(data => {
-          res.send(data);
-        })
-        .catch(err => {
-          res.status(500).send({
-            message: err.message || `${Constants.ERROR_GEN}`
-        });
-      }); 
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: err.message || `${Constants.ERROR_GEN}`
-    });
-  });
-};
-
-//retrieve all sumbissions for a participant
-exports.findByParticipant = (req, res) => {
-  Participant.findOne({ 
-    where: {id: req.params.id},
-    include: Submission
-  }).then((data) => {
-
-    if(!data) {
-      return res.status(404).send({
-        message: 'Participant Sumbissions not found' //move to constants
-      });
-    }
-    res.send(data);
-
-  }).catch(err => {
-    res.status(500).send({
-      message:
-        err.message || `${Constants.ERROR_GEN}`
-    });
-  });
-};
-
-// Retrieve all Item from the database.
-exports.findAll = (req, res) => {
-  Submission.findAll()
+  // Save a Receipt in the database
+  Receipt.create(receipt)
     .then(data => {
       res.send(data);
     })
@@ -115,11 +55,25 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Item with an id
+// Retrieve all Receipt from the database.
+exports.findAll = (req, res) => {
+    Receipt.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || `${Constants.ERROR_GEN}`
+      });
+    });
+};
+
+// Find a single Receipt with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Submission.findByPk(id)
+  Receipt.findByPk(id)
     .then(data => {
       if (data) {
         res.send(data);
@@ -136,11 +90,11 @@ exports.findOne = (req, res) => {
     });
 };
 
-// Update a Item by the id in the request
+// Update a Receipt by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Submission.update(req.body, {
+  Receipt.update(req.body, {
     where: { id: id }
   })
     .then(num => {
@@ -161,11 +115,11 @@ exports.update = (req, res) => {
     });
 };
 
-// Delete a Item with the specified id in the request
+// Delete a Receipt with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Submission.destroy({
+  Receipt.destroy({
     where: { id: id }
   })
     .then(num => {
@@ -186,9 +140,9 @@ exports.delete = (req, res) => {
     });
 };
 
-// Delete all Participants from the database.
+// Delete all Receipt from the database.
 exports.deleteAll = (req, res) => {
-  Submission.destroy({
+    Receipt.destroy({
     where: {},
     truncate: false
   })

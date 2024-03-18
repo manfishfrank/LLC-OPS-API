@@ -1,31 +1,31 @@
 module.exports = (sequelize, Sequelize) => {
-    const Rank = sequelize.define("Rank", {
+    const Prize = sequelize.define("Prize", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        rankNumber: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
-        pointThreshold: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
-        badgeUrl: {
+        lodestoneId: {
             type: Sequelize.STRING,
             allowNull: true,
         },
-        seasonId: {
+        description: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+        discordRole: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+        rankId: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'Seasons',
+                model: 'Ranks',
                 key: 'id',
-            },
-        },
+            }
+        }
     });
 
-    return Rank;
+    return Prize;
 };

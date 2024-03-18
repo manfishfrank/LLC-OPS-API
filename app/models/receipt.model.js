@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Submission = sequelize.define("Submission", {
+    const Receipt = sequelize.define("Receipt", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
                 key: 'id',
             }
         },
-        itemId: {
+        prizeId: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
@@ -29,20 +29,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
-        seasonId: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'Seasons',
-                key: 'id',
-            }
-        },
-        points: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
     });
 
-    return Submission;
+    return Receipt;
 };
   
