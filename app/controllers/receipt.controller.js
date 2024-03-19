@@ -1,5 +1,6 @@
 const db = require("../models");
 const Receipt = db.receipts;
+const Participant = db.participants;
 const Op = db.Sequelize.Op;
 const Constants = require("../constants/index");
 
@@ -53,6 +54,28 @@ exports.create = (req, res) => {
           err.message || `${Constants.ERROR_GEN}`
       });
     });
+};
+
+// Retrieve all Receipts by Participant Id
+exports.findAllByParticipant = (req, res) => {
+  if(req.params.participantId){
+    return res.status(400).send({
+      message: `${Constants.REQUIRE_PREFIX} participantId`
+    });
+  }
+  Participant.findOne({
+    where: {id: req.params.participantId},
+    include: [{
+      module: Receipt,
+    }]
+  }).then((data) => {
+    res.send(data);
+  }).catch((err) => {
+    res.status(500).send({
+      message:
+        err.message || `${Constants.ERROR_GEN}`
+    });
+  })
 };
 
 // Retrieve all Receipt from the database.

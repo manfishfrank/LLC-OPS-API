@@ -22,7 +22,7 @@ module.exports = app => {
     router.delete("/", receipt.deleteAll);
 
     // Get receipt By User Id
-    //router.get("/byuser/:id", submission.findByParticipant);
+    router.get("/participant/:id", receipt.findAllByParticipant);
   
     app.use('/api/receipt', router);
   };
