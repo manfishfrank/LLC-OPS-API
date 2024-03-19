@@ -1,5 +1,9 @@
 const db = require("../models");
 const Participant = db.participants;
+const Receipt = db.receipts;
+const Rank = db.ranks;
+const Submission = db.submissions;
+const Prize = db.prizes;
 const Op = db.Sequelize.Op;
 const Constants = require("../constants/index");
 
@@ -52,6 +56,41 @@ exports.findAll = (req, res) => {
           err.message || `${Constants.ERROR_GEN}`
       });
     });
+};
+
+exports.getParticipantDetails = (req, res) => {
+  if(!req.params.id){
+    return res.status(400).send({
+      message: `${Constants.REQUIRE_PREFIX} id`
+    });
+  }
+  Participant.findOne({
+    where: {id: req.params.id},
+    include: [{
+      model: Rank,
+      include: [{
+        model: Prize,
+      }]
+    },{
+      model: Receipt,
+      include: [{
+        model: Prize,
+      }]
+    },{
+      model: Submission,
+    }]
+  }).then((data) => {
+    if(!data) {
+      return res.status(404).send({
+        message: 'Unable to find Participant'
+      });
+    }
+    res.send(data);
+  }).catch((err) => {
+    res.status(500).send({
+      message: `Oops ${err}`
+    })
+  })
 };
 
 // Find a single Participant with an id

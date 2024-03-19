@@ -17,6 +17,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
+        gilValue: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+        },
         seasonId: {
             type: Sequelize.INTEGER,
             allowNull: false,

@@ -20,6 +20,9 @@ module.exports = app => {
   
     // Delete all Participant
     router.delete("/", participant.deleteAll);
+
+    // Retreive a Participant with details
+    router.get("/details/:id", participant.getParticipantDetails);
   
     app.use('/api/participant', router);
   };
