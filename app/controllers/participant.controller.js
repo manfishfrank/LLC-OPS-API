@@ -26,6 +26,7 @@ exports.create = (req, res) => {
 
   // Create a Participant. Active defaults to true.
   const participant = {
+    lodestoneId: req.body.lodestoneId,
     discordName: req.body.discordName,
     inGameName: req.body.inGameName,
     lodestoneId: req.body.lodestoneId,

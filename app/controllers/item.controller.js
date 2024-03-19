@@ -37,10 +37,11 @@ exports.create = (req, res) => {
 
   // Create a Item. Active defaults to true.
   const item = {
-    lodestoneId: req.body.lodestoneId,
+    lodestoneId: req.body.lodestoneId? req.body.lodestoneId: "",
     itemName: req.body.itemName,
     seasonId: req.body.seasonId,
     value: req.body.value,
+    gilValue: req.body.gilValue? req.body.gilValue : 0,
   };
 
   // Save a Item in the database

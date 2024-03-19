@@ -21,6 +21,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: true,
         },
+        isRaffle: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false,
+        },
         rankId: {
             type: Sequelize.INTEGER,
             allowNull: false,

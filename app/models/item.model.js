@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         lodestoneId: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         itemName: {
             type: Sequelize.STRING,

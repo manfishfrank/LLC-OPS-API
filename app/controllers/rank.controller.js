@@ -34,7 +34,6 @@ exports.create = (req, res) => {
     pointThreshold: req.body.pointThreshold,
     seasonId: req.body.seasonId,
     badgeUrl: req.body.badgeUrl,
-    prizes: req.body.prizes,
   };
 
   // Save a Rank in the database

@@ -15,9 +15,11 @@ exports.create = (req, res) => {
 
   // Create a Prize. Active defaults to true.
   const prize = {
-    lodestoneId: req.body.lodestoneId,
-    description: req.body.description,
-    discordRole: req.body.discordRole,
+    lodestoneId: req.body.lodestoneId? req.body.lodestoneId: "",
+    description: req.body.description? req.body.description: "",
+    discordRole: req.body.discordRole? req.body.discordRole: "",
+    gilValue: req.body.gilValue? req.body.gilValue: 0,
+    isRaffle: req.body.isRaffle? req.body.isRaffle : false,
     rankId: req.body.rankId
   };
 
